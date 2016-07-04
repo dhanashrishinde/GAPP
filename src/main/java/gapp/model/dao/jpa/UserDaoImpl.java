@@ -1,0 +1,52 @@
+package gapp.model.dao.jpa;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import gapp.model.User;
+import gapp.model.dao.UserDao;
+
+@Repository
+public class UserDaoImpl implements UserDao {
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Override
+	public User getUser(String email_id) {
+		int size = entityManager.createQuery( "from User where email_id = :email", User.class )
+				.setParameter("email", email_id)
+				.getResultList().size();
+		if(size == 0){
+			return null;
+		}
+		else{
+			return  entityManager.createQuery( "from User where email_id = :email", User.class )
+					.setParameter("email", email_id)
+					.getSingleResult();
+		}
+	}
+
+	@Override
+	public List<User> getUsers() {
+		return entityManager.createQuery( "from User order by id", User.class )
+				.getResultList();
+	}
+
+	@Override
+	@Transactional
+	public User saveUser(User user) {
+		return entityManager.merge(user);
+	}
+
+	@Override
+	public User getUser(Integer id) {
+		return entityManager.find( User.class, id );
+	}
+
+}

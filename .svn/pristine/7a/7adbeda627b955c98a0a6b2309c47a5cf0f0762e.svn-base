@@ -1,0 +1,24 @@
+package gapp.model.dao.jpa;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
+import gapp.model.User;
+import gapp.model.dao.UserDao;
+
+@Repository
+public class UserDaoImpl implements UserDao {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+	@Override
+	public User getUser(String email_id) {
+		return entityManager.createQuery( "from User where email_id = :email", User.class )
+				.setParameter("email", email_id)
+	            .getSingleResult();
+	}
+
+}

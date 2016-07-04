@@ -1,0 +1,138 @@
+
+    create table academic_records (
+        id int4 not null,
+        gpa varchar(255),
+        gre_score varchar(255),
+        toefl_score varchar(255),
+        transcript bytea,
+        primary key (id)
+    );
+
+    create table additional_field_values (
+        id int4 not null,
+        field_value varchar(255),
+        add_info_field_id int4,
+        applications_field_id int4,
+        primary key (id)
+    );
+
+    create table additional_info (
+        id int4 not null,
+        field_name varchar(255),
+        field_type varchar(255),
+        required boolean,
+        dept_id int4,
+        primary key (id)
+    );
+
+    create table applications (
+        id int4 not null,
+        CIN varchar(255),
+        DateOfBirth varchar(255),
+        citizenship varchar(255),
+        comments varchar(255),
+        gender varchar(255),
+        isInternational boolean not null,
+        status varchar(255),
+        term varchar(255),
+        time_stamp varchar(255),
+        dept_applications int4,
+        program_applications int4,
+        applications_records int4,
+        student_applications int4,
+        primary key (id)
+    );
+
+    create table authorities (
+        user_id int4 not null,
+        role varchar(255)
+    );
+
+    create table degrees (
+        id int4 not null,
+        collegeUniv_name varchar(255),
+        date_end varchar(255),
+        date_start varchar(255),
+        degree_name varchar(255),
+        major_name varchar(255),
+        application_degree int4,
+        primary key (id)
+    );
+
+    create table dept (
+        id int4 not null,
+        dept_name varchar(255),
+        is_gre_required boolean not null,
+        primary key (id)
+    );
+
+    create table grad_progs (
+        id int4 not null,
+        prog_name varchar(255),
+        dept_id int4,
+        primary key (id)
+    );
+
+    create table users (
+        id int4 not null,
+        email_id varchar(255) not null,
+        firstname varchar(255),
+        lastname varchar(255),
+        password varchar(255) not null,
+        primary key (id)
+    );
+
+    alter table users 
+        add constraint UK_pwrpg821nujmmnavoq7s420jn unique (email_id);
+
+    alter table additional_field_values 
+        add constraint FK_1fjffbsin9hoe90bcvamu0cup 
+        foreign key (add_info_field_id) 
+        references additional_info;
+
+    alter table additional_field_values 
+        add constraint FK_aulrw7fv3fbgexdtuulqbak 
+        foreign key (applications_field_id) 
+        references applications;
+
+    alter table additional_info 
+        add constraint FK_6pib03m9h1jyq69p1gi3teed2 
+        foreign key (dept_id) 
+        references dept;
+
+    alter table applications 
+        add constraint FK_35snsa9vvsgaccp3dyab7oubb 
+        foreign key (dept_applications) 
+        references dept;
+
+    alter table applications 
+        add constraint FK_ajwjo6giyw5hqe4kf6oqplcbp 
+        foreign key (program_applications) 
+        references grad_progs;
+
+    alter table applications 
+        add constraint FK_sks2794hjtejkewkppgfhnrj4 
+        foreign key (applications_records) 
+        references academic_records;
+
+    alter table applications 
+        add constraint FK_adyok3alt9hij3tlfmd2ac84v 
+        foreign key (student_applications) 
+        references users;
+
+    alter table authorities 
+        add constraint FK_s21btj9mlob1djhm3amivbe5e 
+        foreign key (user_id) 
+        references users;
+
+    alter table degrees 
+        add constraint FK_q05oe2fg1ca64dl1emxsbbcj7 
+        foreign key (application_degree) 
+        references applications;
+
+    alter table grad_progs 
+        add constraint FK_10wp5f7glpysfil7s3v15tst 
+        foreign key (dept_id) 
+        references dept;
+
+    create sequence hibernate_sequence;

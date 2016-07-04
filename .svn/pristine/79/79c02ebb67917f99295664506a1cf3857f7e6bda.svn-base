@@ -1,0 +1,17 @@
+package gapp.model.dao;
+
+import java.util.List;
+
+import gapp.model.Application;
+import gapp.model.Department;
+import gapp.model.User;
+
+public interface ApplicationDao {
+
+	Department getDept( String dept_name );
+	
+	List<Application> getApplicationNo( Integer id, String term );
+	
+	
+	
+}

@@ -1,0 +1,9 @@
+package gapp.model.dao;
+
+import gapp.model.User;
+
+public interface UserDao {
+
+	User getUser( String email_id );
+
+}

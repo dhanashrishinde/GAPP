@@ -1,0 +1,71 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %> --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<title>Department Management</title>
+</head>
+<body background="/gapp/images/book1.jpg" style="font-family: palatino;">
+	<center>
+		<nav class="navbar navbar-inverse nav-fixed-top"
+			style="background-color:#7A3E48">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<b style="color: #E18942"><a class="navbar-brand"
+					style="color: #E18942" href="#">GAPP</a></b>
+			</div>
+			<ul class="nav navbar-nav" style="background-color: #B95835">
+				<li class="active"><a href="/gapp/user/home.html" style="color: #EECD86"><span
+						class="glyphicon glyphicon-home"></span>Home</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/gapp/user/logout.html" style="color: #EECD86"> <span
+						class="glyphicon glyphicon-log-out"></span> Logout
+				</a></li>
+			</ul>
+		</div>
+		</nav>
+
+		<div class="container" align="center">
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6">
+					<div class="panel"
+						style="background-color: rgba(255, 255, 255, 0.4); border-style: none">
+						<div class="panel-body">
+							<h2 style="color: #DF0101">Department Management</h2>
+							<table class="table table-hover table-bordered table-striped"
+								style="border-style: solid; border-color: #7A3E48; background-color: rgba(255, 255, 255, 0.4);">
+								<thead style="border-style: solid; border-color: #7A3E48;">
+									<tr>
+										<!-- <th style="border-style: solid; border-color: #7A3E48;">id</th> -->
+										<th style="border-style: solid; border-color: #7A3E48;">Department
+											Name</th>
+										<th style="border-style: solid; border-color: #7A3E48;">No.
+											of Programs offered</th>
+										<th style="border-style: solid; border-color: #7A3E48;">Details</th>
+									</tr>
+									<c:forEach items="${depts}" var="dept">
+										<tr>
+											<%-- <td style="border-style: solid; border-color: #7A3E48;">${dept.id}</td> --%>
+											<td style="border-style: solid; border-color: #7A3E48;">${dept.dept_name}</td>
+											<td style="border-style: solid; border-color: #7A3E48;">${dept.programs.size()}</td>
+											<td style="border-style: solid; border-color: #7A3E48;"><a
+												href="/gapp/dept/view.html?id=${dept.id}">View & Edit</a></td>
+
+										</tr>
+									</c:forEach>
+							</table>
+							<a href="/gapp/dept/addDept.html" class="btn btn-danger btn-lg btn-block">Add New Department</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</center>
+</body>
+</html>
